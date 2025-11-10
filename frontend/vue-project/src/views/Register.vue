@@ -139,7 +139,7 @@
                             ¿Ya tienes una cuenta? 
                             <a 
                                 href="#" 
-                                @click.prevent="$emit('goToLogin')"
+                                @click.prevent="goToLogin"
                                 class="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
                             >
                                 Inicia sesión aquí
@@ -153,52 +153,56 @@
 </template>
 
 <script setup>
+    import { useRouter } from "vue-router";
     import { ref } from 'vue'
     import axios from 'axios'
-    // Definir los eventos que el componente puede emitir
-    defineEmits(['goToLogin'])
 
     const username = ref('')
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const selectedRole = ref('')
-const termsAccepted = ref(false)
+    const email = ref('')
+    const password = ref('')
+    const confirmPassword = ref('')
+    const selectedRole = ref('')
+    const termsAccepted = ref(false)
+    const router = useRouter()
 
-const registerUser = async () => {
-    console.log('🟣 registerUser ejecutado')
-    console.log('Datos a enviar:', {
-        nombre: username.value,
-        correo: email.value,
-        password: password.value,
-        rol: selectedRole.value,
-        termsAccepted: termsAccepted.value
-    })
+    const goToLogin = () => {
+        router.push('/login');
+    };
 
-    if (!termsAccepted.value) {
-        alert('Debes aceptar los términos y condiciones.')
-        return
-    }
-
-    if (password.value !== confirmPassword.value) {
-        alert('Las contraseñas no coinciden.')
-        return
-    }
-
-    try {
-        const res = await axios.post('http://localhost:3000/api/usuarios', {
-        nombre: username.value,
-        correo: email.value,
-        password: password.value,
-        rol: selectedRole.value
+    const registerUser = async () => {
+        console.log('🟣 registerUser ejecutado')
+        console.log('Datos a enviar:', {
+            nombre: username.value,
+            correo: email.value,
+            password: password.value,
+            rol: selectedRole.value,
+            termsAccepted: termsAccepted.value
         })
-        console.log('🟢 Respuesta del backend:', res.data)
-        alert('✅ Usuario registrado con éxito')
-    } catch (error) {
-        console.error('🔴 Error al registrar usuario:', error)
-        if (error.response) {
-        console.error('Respuesta del servidor:', error.response.data)
+
+        if (!termsAccepted.value) {
+            alert('Debes aceptar los términos y condiciones.')
+            return
+        }
+
+        if (password.value !== confirmPassword.value) {
+            alert('Las contraseñas no coinciden.')
+            return
+        }
+
+        try {
+            const res = await axios.post('http://localhost:3000/api/usuarios', {
+                nombre: username.value,
+                correo: email.value,
+                password: password.value,
+                rol: selectedRole.value
+        })
+            console.log('🟢 Respuesta del backend:', res.data)
+            alert('✅ Usuario registrado con éxito')
+        } catch (error) {
+            console.error('🔴 Error al registrar usuario:', error)
+            if (error.response) {
+            console.error('Respuesta del servidor:', error.response.data)
+            }
         }
     }
-}
 </script>

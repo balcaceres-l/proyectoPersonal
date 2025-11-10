@@ -1,6 +1,6 @@
 <template>
     <div
-        class="login-container min-h-screen w-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900"
+        class="login-container min-h-screen w-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900"
     >
         <!-- Header -->
         <div class="absolute top-0 left-0 right-0 z-10">
@@ -106,13 +106,7 @@
             <div class="mt-8 text-center">
                 <p class="text-gray-600 dark:text-gray-400">
                 ¿No tienes una cuenta?
-                <a
-                    href="#"
-                    @click.prevent="$emit('goToRegister')"
-                    class="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors duration-200"
-                >
-                    Regístrate aquí
-                </a>
+                <a href="#" @click.prevent="goToRegister" class="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors duration-200">Regístrate aquí</a>
                 </p>
             </div>
             </div>
@@ -124,9 +118,11 @@
     <script setup>
     import axios from "axios";
     import { ref } from "vue";
+    import { useRouter } from "vue-router";
 
     const email = ref("");
     const password = ref("");
+    const router = useRouter();
 
     const login = async () => {
     try {
@@ -142,11 +138,18 @@
 
         console.log("🟢 Respuesta del backend:", response.data);
         alert("Bienvenido!!! 🎉");
+        
+        // Redirigir al dashboard de empleados después del login exitoso
+        router.push('/empleados');
 
     } catch (error) {
         console.error("🔴 Error al iniciar sesión:", error.response?.data || error.message);
         alert("Error al iniciar sesión: " + (error.response?.data?.mensaje || error.message));
     }
+    };
+
+    const goToRegister = () => {
+        router.push('/register');
     };
     </script>
 
