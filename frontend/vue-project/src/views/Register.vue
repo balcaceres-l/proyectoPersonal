@@ -36,86 +36,92 @@
                         </p>
                     </div>
 
-                    <form class="space-y-8 lg:space-y-10">
-                        <!-- Grid layout for desktop -->
+                    <form class="space-y-8 lg:space-y-10" @submit.prevent="registerUser">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                             <div>
-                                <label for="username" class="block text-sm lg:text-base font-semibold text-gray-700 mb-2 lg:mb-3">
-                                    Nombre de usuario
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="username" 
-                                    required 
-                                    class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
-                                    placeholder="Ingresa tu nombre"
-                                />
+                            <label for="username" class="block text-sm lg:text-base font-semibold text-gray-700 mb-2 lg:mb-3">
+                                Nombre de usuario
+                            </label>
+                            <input 
+                                v-model="username"
+                                type="text" 
+                                id="username" 
+                                required 
+                                class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
+                                placeholder="Ingresa tu nombre"
+                            />
                             </div>
                             
                             <div>
-                                <label for="email" class="block text-sm lg:text-base font-semibold text-gray-700 mb-2 lg:mb-3">
-                                    Correo electrónico
-                                </label>
-                                <input 
-                                    type="email" 
-                                    id="email" 
-                                    required 
-                                    class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
-                                    placeholder="correo@ejemplo.com"
-                                />
+                            <label for="email" class="block text-sm lg:text-base font-semibold text-gray-700 mb-2 lg:mb-3">
+                                Correo electrónico
+                            </label>
+                            <input 
+                                v-model="email"
+                                type="email" 
+                                id="email" 
+                                required 
+                                class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
+                                placeholder="correo@ejemplo.com"
+                            />
                             </div>
                             
                             <div>
-                                <label for="password" class="block text-sm lg:text-base font-semibold text-gray-700 mb-1 lg:mb-1">
-                                    Contraseña
-                                </label>
-                                <input 
-                                    type="password" 
-                                    id="password" 
-                                    required 
-                                    class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
-                                    placeholder="Mínimo 8 caracteres"
-                                />
+                            <label for="password" class="block text-sm lg:text-base font-semibold text-gray-700 mb-1 lg:mb-1">
+                                Contraseña
+                            </label>
+                            <input 
+                                v-model="password"
+                                type="password" 
+                                id="password" 
+                                required 
+                                class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
+                                placeholder="Mínimo 8 caracteres"
+                            />
                             </div>
                             
                             <div>
-                                <label for="confirm-password" class="block text-sm lg:text-base font-semibold text-gray-700 mb-2 lg:mb-3">
-                                    Confirmar contraseña
-                                </label>
-                                <input 
-                                    type="password" 
-                                    id="confirm-password" 
-                                    required 
-                                    class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
-                                    placeholder="Repite tu contraseña"
-                                />
+                            <label for="confirm-password" class="block text-sm lg:text-base font-semibold text-gray-700 mb-2 lg:mb-3">
+                                Confirmar contraseña
+                            </label>
+                            <input 
+                                v-model="confirmPassword"
+                                type="password" 
+                                id="confirm-password" 
+                                required 
+                                class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base lg:text-lg"
+                                placeholder="Repite tu contraseña"
+                            />
                             </div>
                         </div>
 
-                        <!-- Role selector - full width -->
                         <div>
                             <label for="role" class="block text-sm lg:text-base font-semibold text-gray-700 mb-2 lg:mb-3">
-                                Tipo de cuenta
+                            Tipo de cuenta
                             </label>
                             <select 
-                                v-model="selectedRole"
-                                id="role"
-                                class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 text-base lg:text-lg bg-white"
+                            v-model="selectedRole"
+                            id="role"
+                            class="w-full px-4 py-3 lg:px-5 lg:py-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all duration-200 text-gray-900 text-base lg:text-lg bg-white"
                             >
-                                <option disabled value="">Selecciona el tipo de cuenta</option>
-                                <option value="admin">👨‍💼 Empleado</option>
-                                <option value="user">👤 Empleador</option>
+                            <option disabled value="">Selecciona el tipo de cuenta</option>
+                            <option value="empleado">👨‍💼 Empleado</option>
+                            <option value="empleador">👤 Empleador</option>
                             </select>
                         </div>
 
-                        <!-- Terms and conditions -->
                         <div class="flex items-start lg:items-center pt-2">
-                            <input type="checkbox" id="terms" class="h-4 w-4 lg:h-5 lg:w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mt-1 lg:mt-0">
+                            <input 
+                            v-model="termsAccepted"
+                            type="checkbox" 
+                            id="terms" 
+                            class="h-4 w-4 lg:h-5 lg:w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mt-1 lg:mt-0"
+                            >
                             <label for="terms" class="ml-3 lg:ml-4 text-sm lg:text-base text-gray-600">
-                                Acepto los 
-                                <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium">términos y condiciones</a>
-                                y la 
-                                <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium">política de privacidad</a>
+                            Acepto los 
+                            <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium">términos y condiciones</a>
+                            y la 
+                            <a href="#" class="text-indigo-600 hover:text-indigo-500 font-medium">política de privacidad</a>
                             </label>
                         </div>
 
@@ -125,7 +131,7 @@
                         >
                             Crear Cuenta
                         </button>
-                    </form>
+                        </form>
                     
                     
                     <div class="mt-8 lg:mt-10 text-center">
@@ -147,11 +153,52 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+    import { ref } from 'vue'
+    import axios from 'axios'
+    // Definir los eventos que el componente puede emitir
+    defineEmits(['goToLogin'])
 
-// Definir los eventos que el componente puede emitir
-defineEmits(['goToLogin'])
-
-// Variables reactivas
+    const username = ref('')
+const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
 const selectedRole = ref('')
+const termsAccepted = ref(false)
+
+const registerUser = async () => {
+    console.log('🟣 registerUser ejecutado')
+    console.log('Datos a enviar:', {
+        nombre: username.value,
+        correo: email.value,
+        password: password.value,
+        rol: selectedRole.value,
+        termsAccepted: termsAccepted.value
+    })
+
+    if (!termsAccepted.value) {
+        alert('Debes aceptar los términos y condiciones.')
+        return
+    }
+
+    if (password.value !== confirmPassword.value) {
+        alert('Las contraseñas no coinciden.')
+        return
+    }
+
+    try {
+        const res = await axios.post('http://localhost:3000/api/usuarios', {
+        nombre: username.value,
+        correo: email.value,
+        password: password.value,
+        rol: selectedRole.value
+        })
+        console.log('🟢 Respuesta del backend:', res.data)
+        alert('✅ Usuario registrado con éxito')
+    } catch (error) {
+        console.error('🔴 Error al registrar usuario:', error)
+        if (error.response) {
+        console.error('Respuesta del servidor:', error.response.data)
+        }
+    }
+}
 </script>
