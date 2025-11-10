@@ -52,12 +52,41 @@ export const loginUsuario = async (correo, password) => {
   try {
     conn = await pool.getConnection();
 
-    const [usuario] = await conn.query("SELECT * FROM usuario WHERE correo = ?", [correo]);
-    
+    const usuarios = await conn.query("SELECT * FROM usuario WHERE correo = ?", [correo]);
+    console.log("🔍 Resultado de la consulta completo:", usuarios);
+    console.log("🔍 Tipo de resultado:", typeof usuarios, "Es array:", Array.isArray(usuarios));
+    console.log("🔍 Longitud del array:", usuarios?.length);
 
-    if (!usuario) {
+    if (!usuarios || usuarios.length === 0) {
       const error = new Error("Usuario no encontrado");
       error.statusCode = 401;
+      throw error;
+    }
+
+    const usuario = usuarios[0];
+    console.log("👤 Usuario encontrado:", {
+      id: usuario?.id,
+      correo: usuario?.correo,
+      tienePassword: !!usuario?.password,
+      passwordLength: usuario?.password?.length,
+      passwordType: typeof usuario?.password,
+      passwordValue: usuario?.password ? "[OCULTO]" : "NULL/UNDEFINED"
+    });
+
+    // Verificar que tanto password como usuario.password existan
+    console.log("🔐 Verificando argumentos para bcrypt:");
+    console.log("- password (entrada):", password ? `[${password.length} chars]` : "NULL/UNDEFINED");
+    console.log("- usuario.password (BD):", usuario?.password ? `[${usuario.password.length} chars]` : "NULL/UNDEFINED");
+
+    if (!usuario.password) {
+      const error = new Error("Password no encontrado en la base de datos para este usuario");
+      error.statusCode = 500;
+      throw error;
+    }
+
+    if (!password) {
+      const error = new Error("Password de entrada está vacío");
+      error.statusCode = 400;
       throw error;
     }
 
