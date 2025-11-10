@@ -53,6 +53,8 @@ export const loginUsuario = async (correo, password) => {
     conn = await pool.getConnection();
 
     const [usuario] = await conn.query("SELECT * FROM usuario WHERE correo = ?", [correo]);
+    
+
     if (!usuario) {
       const error = new Error("Usuario no encontrado");
       error.statusCode = 401;
@@ -104,9 +106,9 @@ export const actualizarUsuario = async (id, datosActualizados) => {
         if (fs.existsSync(rutaAnterior)) {
           try {
             fs.unlinkSync(rutaAnterior);
-            console.log("🗑️ Foto anterior eliminada:", usuarioActual.foto_perfil);
+            console.log("Foto anterior eliminada:", usuarioActual.foto_perfil);
           } catch (error) {
-            console.error("⚠️ Error al eliminar foto anterior:", error);
+            console.error(" Error al eliminar foto anterior:", error);
           }
         }
       }

@@ -155,8 +155,9 @@ export const loginUsuario = async (req, res, next) => {
     }
 
     const usuario = await usuarioService.loginUsuario(correo, password);
-    console.log("🟢 Usuario autenticado:", usuario);
-
+    console.log("Usuario autenticado:", usuario);
+    console.log("📩 Contraseña recibida del front:", password);
+    console.log("🧱 Hash guardado en BD:", usuario?.password);
     res.status(200).json({
       message: "Inicio de sesión exitoso",
       data: usuario,
