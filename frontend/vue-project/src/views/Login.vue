@@ -137,12 +137,46 @@
         password: password.value,
         });
 
-        console.log("🟢 Respuesta del backend:", response.data);
-        alert("Bienvenido!!! 🎉");
-        
-        // Redirigir al dashboard de empleados después del login exitoso
-        router.push('/empleados');
+        console.log("🟢 Respuesta completa del backend:", response.data);
+        console.log("🔍 Estructura de response.data:", Object.keys(response.data));
 
+        // Intentar obtener el usuario y rol de diferentes maneras
+        const usuario = response.data.data || response.data.usuario || response.data.user;
+        let rol = usuario?.rol || usuario?.role || response.data.rol || response.data.role;
+
+        console.log("👤 Usuario obtenido:", usuario);
+        console.log("🎯 Rol detectado:", rol);
+        console.log("🔍 Posibles roles en response.data:", {
+            'response.data.rol': response.data.rol,
+            'response.data.role': response.data.role,
+            'response.data.usuario?.rol': response.data.usuario?.rol,
+            'response.data.user?.rol': response.data.user?.rol
+        });
+
+        localStorage.setItem("rol", rol);
+        if (response.data.token) {
+            localStorage.setItem("token", response.data.token);
+        }
+
+        console.log("💾 Rol guardado en localStorage:", localStorage.getItem("rol"));
+
+        // Mostrar el alert primero
+        alert("Bienvenido!!! 🎉");
+
+        // Luego redirigir
+        if(rol === 'empleado') {
+            console.log("🔀 Redirigiendo a empleados...");
+            router.push('/empleados');
+        }
+        else if(rol === 'empleador') {
+            console.log("🔀 Redirigiendo a empleador dashboard...");
+            router.push('/empleador/dashboard');
+        }
+        else {
+            console.log("⚠️ Rol no reconocido:", rol);
+            console.log("🔀 Redirigiendo a login por rol no válido...");
+            router.push('/login');
+        }
     } catch (error) {
         console.error("🔴 Error al iniciar sesión:", error.response?.data || error.message);
         alert("Error al iniciar sesión: " + (error.response?.data?.mensaje || error.message));

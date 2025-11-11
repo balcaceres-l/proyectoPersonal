@@ -171,102 +171,102 @@ const currentPage = ref(1)
 const itemsPerPage = 10
 
 const jobs = ref([
-  {
-    id: 1,
-    title: 'Desarrollador Frontend Vue.js',
-    company: 'TechCorp',
-    location: 'Madrid',
-    salary: '35.000€ - 45.000€',
-    type: 'Tiempo Completo',
-    description: 'Buscamos un desarrollador Frontend con experiencia en Vue.js para unirse a nuestro equipo de desarrollo.',
-    skills: ['Vue.js', 'JavaScript', 'HTML', 'CSS', 'Git'],
-    postedDate: 'Hace 2 días'
-  },
-  {
-    id: 2,
-    title: 'Diseñador UX/UI',
-    company: 'DesignStudio',
-    location: 'Barcelona',
-    salary: '30.000€ - 40.000€',
-    type: 'Tiempo Completo',
-    description: 'Únete a nuestro equipo como Diseñador UX/UI y ayuda a crear experiencias digitales increíbles.',
-    skills: ['Figma', 'Adobe XD', 'Prototyping', 'User Research'],
-    postedDate: 'Hace 1 día'
-  },
-  {
-    id: 3,
-    title: 'Desarrollador Full Stack',
-    company: 'StartupInnovate',
-    location: 'Remoto',
-    salary: '40.000€ - 55.000€',
-    type: 'Remoto',
-    description: 'Oportunidad remota para desarrollador Full Stack con experiencia en tecnologías modernas.',
-    skills: ['Node.js', 'Vue.js', 'MongoDB', 'Express', 'Docker'],
-    postedDate: 'Hace 3 días'
-  },
-  {
-    id: 4,
-    title: 'Consultor de Marketing Digital',
-    company: 'MarketingPro',
-    location: 'Valencia',
-    salary: '25.000€ - 35.000€',
-    type: 'Tiempo Parcial',
-    description: 'Buscamos consultor de marketing digital para gestionar campañas y estrategias online.',
-    skills: ['SEO', 'SEM', 'Google Analytics', 'Social Media'],
-    postedDate: 'Hace 5 días'
-  },
-  {
-    id: 5,
-    title: 'Desarrollador Mobile React Native',
-    company: 'MobileFirst',
-    location: 'Madrid',
-    salary: '38.000€ - 48.000€',
-    type: 'Tiempo Completo',
-    description: 'Desarrolla aplicaciones móviles innovadoras con React Native en un ambiente colaborativo.',
-    skills: ['React Native', 'JavaScript', 'iOS', 'Android'],
-    postedDate: 'Hace 1 semana'
-  }
+    {
+        id: 1,
+        title: 'Desarrollador Frontend Vue.js',
+        company: 'TechCorp',
+        location: 'Madrid',
+        salary: '35.000€ - 45.000€',
+        type: 'Tiempo Completo',
+        description: 'Buscamos un desarrollador Frontend con experiencia en Vue.js para unirse a nuestro equipo de desarrollo.',
+        skills: ['Vue.js', 'JavaScript', 'HTML', 'CSS', 'Git'],
+        postedDate: 'Hace 2 días'
+    },
+    {
+        id: 2,
+        title: 'Diseñador UX/UI',
+        company: 'DesignStudio',
+        location: 'Barcelona',
+        salary: '30.000€ - 40.000€',
+        type: 'Tiempo Completo',
+        description: 'Únete a nuestro equipo como Diseñador UX/UI y ayuda a crear experiencias digitales increíbles.',
+        skills: ['Figma', 'Adobe XD', 'Prototyping', 'User Research'],
+        postedDate: 'Hace 1 día'
+    },
+    {
+        id: 3,
+        title: 'Desarrollador Full Stack',
+        company: 'StartupInnovate',
+        location: 'Remoto',
+        salary: '40.000€ - 55.000€',
+        type: 'Remoto',
+        description: 'Oportunidad remota para desarrollador Full Stack con experiencia en tecnologías modernas.',
+        skills: ['Node.js', 'Vue.js', 'MongoDB', 'Express', 'Docker'],
+        postedDate: 'Hace 3 días'
+    },
+    {
+        id: 4,
+        title: 'Consultor de Marketing Digital',
+        company: 'MarketingPro',
+        location: 'Valencia',
+        salary: '25.000€ - 35.000€',
+        type: 'Tiempo Parcial',
+        description: 'Buscamos consultor de marketing digital para gestionar campañas y estrategias online.',
+        skills: ['SEO', 'SEM', 'Google Analytics', 'Social Media'],
+        postedDate: 'Hace 5 días'
+    },
+    {
+        id: 5,
+        title: 'Desarrollador Mobile React Native',
+        company: 'MobileFirst',
+        location: 'Madrid',
+        salary: '38.000€ - 48.000€',
+        type: 'Tiempo Completo',
+        description: 'Desarrolla aplicaciones móviles innovadoras con React Native en un ambiente colaborativo.',
+        skills: ['React Native', 'JavaScript', 'iOS', 'Android'],
+        postedDate: 'Hace 1 semana'
+    }
 ])
 
 // Computed
 const filteredJobs = computed(() => {
-  let filtered = jobs.value
+    let filtered = jobs.value
 
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(job => 
-      job.title.toLowerCase().includes(query) ||
-      job.company.toLowerCase().includes(query) ||
-      job.location.toLowerCase().includes(query)
-    )
-  }
+    if (searchQuery.value) {
+        const query = searchQuery.value.toLowerCase()
+        filtered = filtered.filter(job =>
+            job.title.toLowerCase().includes(query) ||
+            job.company.toLowerCase().includes(query) ||
+            job.location.toLowerCase().includes(query)
+        )
+    }
 
-  if (selectedType.value) {
-    filtered = filtered.filter(job => job.type.toLowerCase() === selectedType.value)
-  }
+    if (selectedType.value) {
+        filtered = filtered.filter(job => job.type.toLowerCase() === selectedType.value)
+    }
 
-  if (selectedLocation.value) {
-    filtered = filtered.filter(job => job.location.toLowerCase() === selectedLocation.value)
-  }
+    if (selectedLocation.value) {
+        filtered = filtered.filter(job => job.location.toLowerCase() === selectedLocation.value)
+    }
 
-  return filtered
+    return filtered
 })
 
 const totalPages = computed(() => Math.ceil(filteredJobs.value.length / itemsPerPage))
 
 // Methods
 const getJobTypeClass = (type) => {
-  const classes = {
-    'Tiempo Completo': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    'Tiempo Parcial': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-    'Freelance': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-    'Remoto': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-  }
-  return classes[type] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+    const classes = {
+        'Tiempo Completo': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+        'Tiempo Parcial': 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+        'Freelance': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+        'Remoto': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+    }
+    return classes[type] || 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
 }
 
 const viewJobDetails = (job) => {
     console.log('Ver detalles del empleo:', job)
-    
+
 }
 </script>
