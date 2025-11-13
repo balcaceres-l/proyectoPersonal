@@ -164,7 +164,7 @@
     const selectedRole = ref('')
     const termsAccepted = ref(false)
     const router = useRouter()
-
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const goToLogin = () => {
         router.push('/login');
     };
@@ -190,13 +190,13 @@
         }
 
         try {
-            const res = await axios.post('http://localhost:3000/api/usuarios', {
+            const response = await axios.post(`${API_BASE_URL}/usuarios`, {
                 nombre: username.value,
                 correo: email.value,
                 password: password.value,
                 rol: selectedRole.value
         })
-            console.log('🟢 Respuesta del backend:', res.data)
+            
             alert('✅ Usuario registrado con éxito')
         } catch (error) {
             console.error('🔴 Error al registrar usuario:', error)

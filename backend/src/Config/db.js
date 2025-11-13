@@ -9,10 +9,13 @@ const pool = mariadb.createPool({
   database: process.env.DATABASENAME,
   port: process.env.DATABASEPORT || 3306,
   connectionLimit: 10,
+  charset: 'utf8mb4',
+  collation: 'utf8mb4_unicode_ci',
 });
 (async () => {
   let conn;
   try {
+
     conn = await pool.getConnection();
     console.log('Conexión a MariaDB exitosa.');
   } catch (error) {
@@ -21,5 +24,6 @@ const pool = mariadb.createPool({
     if (conn) conn.release();
   }
 })();
+
 
  export default pool;

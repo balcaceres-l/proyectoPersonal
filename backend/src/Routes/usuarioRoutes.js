@@ -19,8 +19,9 @@ router.post("/login", userController.loginUsuario);
 router.get("/:id", userController.obtenerUsuarioPorId);
 router.put(
   "/:id",
+  
   (req, res, next) => {
-    uploadProfile.single("fotoPerfil")(req, res, (err) => {
+    uploadProfile.single("foto_perfil")(req, res, (err) => {
       if (err) {
         console.error("Error de Multer:", err);
 

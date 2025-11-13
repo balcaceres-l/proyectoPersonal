@@ -1,3 +1,4 @@
+// backend/src/Config/multerProfile.js
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,7 +12,7 @@ const __dirname = dirname(__filename);
 const uploadDir = path.resolve(__dirname, '../uploads/fotoPerfil');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
-  console.log('📁 Directorio de fotos de perfil creado:', uploadDir);
+  console.log('Directorio de fotos de perfil creado:', uploadDir);
 }
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

@@ -20,26 +20,23 @@
                 Nombre de la Empresa
               </label>
               <input 
-                v-model="profile.companyName"
+                v-model="profile.nombre"
                 type="text" 
                 class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="Ingrese el nombre de la empresa"
               >
             </div>
             
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Sector
+                Dirección
               </label>
-              <select 
-                v-model="profile.industry"
+              <input 
+                v-model="profile.direccion"
+                type="text" 
                 class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="Ingrese la dirección"
               >
-                <option value="">Seleccionar sector</option>
-                <option value="Tecnología">Tecnología</option>
-                <option value="Salud">Salud</option>
-                <option value="Educación">Educación</option>
-                <option value="Finanzas">Finanzas</option>
-              </select>
             </div>
             
             <div class="md:col-span-2">
@@ -47,37 +44,26 @@
                 Descripción de la Empresa
               </label>
               <textarea 
-                v-model="profile.description"
+                v-model="profile.descripcion"
                 rows="4"
                 class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="Describe tu empresa, sus valores y objetivos"
               ></textarea>
             </div>
             
-            <div>
+            <div class="md:col-span-2">
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Sitio Web
+                Redes Sociales
               </label>
               <input 
-                v-model="profile.website"
-                type="url" 
+                v-model="profile.redesSociales"
+                type="text" 
                 class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="Ej: Facebook: @empresa, LinkedIn: /empresa, Twitter: @empresa"
               >
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Tamaño de la Empresa
-              </label>
-              <select 
-                v-model="profile.size"
-                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-              >
-                <option value="">Seleccionar tamaño</option>
-                <option value="1-10">1-10 empleados</option>
-                <option value="11-50">11-50 empleados</option>
-                <option value="51-200">51-200 empleados</option>
-                <option value="200+">Más de 200 empleados</option>
-              </select>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                Ingrese sus redes sociales separadas por comas
+              </p>
             </div>
           </div>
           
@@ -116,16 +102,18 @@ export default {
     })
 
     const profile = ref({
-      companyName: 'Empresa ABC',
-      industry: 'Tecnología',
-      description: 'Somos una empresa líder en el desarrollo de soluciones tecnológicas innovadoras.',
-      website: 'https://empresaabc.com',
-      size: '51-200'
+      idempresa: null, // Se asignará al cargar los datos
+      nombre: 'Empresa ABC',
+      direccion: 'San Salvador, El Salvador',
+      descripcion: 'Somos una empresa líder en el desarrollo de soluciones tecnológicas innovadoras.',
+      redesSociales: 'Facebook: @empresaabc, LinkedIn: /empresa-abc'
     })
 
     const saveProfile = () => {
-      // Lógica para guardar el perfil
+      // Lógica para guardar el perfil en la base de datos
       console.log('Guardando perfil:', profile.value)
+      // Aquí realizarías la petición API para actualizar los datos
+      // PUT /api/empresas/:id con los datos de profile.value
     }
 
     return {

@@ -84,6 +84,7 @@ export const loginUsuario = async (correo, password) => {
       throw error;
     }
 
+
     if (!password) {
       const error = new Error("Password de entrada está vacío");
       error.statusCode = 400;
@@ -112,7 +113,7 @@ export const obtenerUsuarioPorId = async (id) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    const [usuario] = await conn.query("SELECT * FROM usuario WHERE id = ?", [id]);
+    const [usuario] = await conn.query("SELECT * FROM usuario WHERE idusuario = ?", [id]);
     return usuario || null;
   } catch (err) {
     throw err;
@@ -129,7 +130,7 @@ export const actualizarUsuario = async (id, datosActualizados) => {
 
     // Si hay una nueva foto, eliminar la anterior
     if (datosActualizados.foto_perfil) {
-      const [usuarioActual] = await conn.query("SELECT foto_perfil FROM usuario WHERE id = ?", [id]);
+      const [usuarioActual] = await conn.query("SELECT foto_perfil FROM usuario WHERE idusuario = ?", [id]);
       if (usuarioActual && usuarioActual.foto_perfil) {
         const rutaAnterior = path.join(__dirname, "../uploads/fotoPerfil", usuarioActual.foto_perfil);
         if (fs.existsSync(rutaAnterior)) {
@@ -150,18 +151,19 @@ export const actualizarUsuario = async (id, datosActualizados) => {
       campos.push(`${key} = ?`);
       valores.push(value);
     }
+    
 
     if (campos.length === 0) return null;
 
     valores.push(id);
 
-    const query = `UPDATE usuario SET ${campos.join(", ")} WHERE id = ?`;
+    const query = `UPDATE usuario SET ${campos.join(", ")} WHERE idusuario = ?`;
     const result = await conn.query(query, valores);
 
     if (result.affectedRows === 0) return null;
 
     const [usuarioActualizado] = await conn.query(
-      "SELECT id, nombre, correo, rol, idempresa, foto_perfil, curriculum_path FROM usuario WHERE id = ?",
+      "SELECT *  FROM usuario WHERE idusuario = ?",
       [id]
     );
 
@@ -178,7 +180,7 @@ export const eliminarUsuario = async (id) => {
   let conn;
   try {
     conn = await pool.getConnection();
-    const result = await conn.query("DELETE FROM usuario WHERE id = ?", [id]);
+    const result = await conn.query("DELETE FROM usuario WHERE idusuario = ?", [id]);
     return result.affectedRows > 0;
   } catch (err) {
     throw err;

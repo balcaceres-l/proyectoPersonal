@@ -124,7 +124,7 @@
     const email = ref("");
     const password = ref("");
     const router = useRouter();
-
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const login = async () => {
     try {
         console.log("🟣 Enviando datos de login:", {
@@ -132,9 +132,9 @@
         password: password.value,
         });
 
-        const response = await axios.post("http://localhost:3000/api/usuarios/login", {
-        correo: email.value,
-        password: password.value,
+        const response = await axios.post(`${API_BASE_URL}/usuarios/login`, {
+            correo: email.value,
+            password: password.value,
         });
 
         console.log("🟢 Respuesta completa del backend:", response.data);
@@ -152,8 +152,9 @@
             'response.data.usuario?.rol': response.data.usuario?.rol,
             'response.data.user?.rol': response.data.user?.rol
         });
-
+        const userId= usuario?.idusuario || usuario?.id || response.data.idusuario || response.data.userId;
         localStorage.setItem("rol", rol);
+        localStorage.setItem("idusuario", userId);
         if (response.data.token) {
             localStorage.setItem("token", response.data.token);
         }

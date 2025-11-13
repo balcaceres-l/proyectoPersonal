@@ -80,10 +80,8 @@ export const putActualizarUsuario = async (req, res, next) => {
     delete datosActualizados.contraseña;
     delete datosActualizados.rol;
     delete datosActualizados.id;
-    delete datosActualizados.curriculum_path;
     delete datosActualizados.idempresa;
 
-    // Convertir strings vacíos o "null"/"undefined" a null
     Object.keys(datosActualizados).forEach((key) => {
       if (
         datosActualizados[key] === "" ||
