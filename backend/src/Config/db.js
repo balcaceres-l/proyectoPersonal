@@ -8,9 +8,13 @@ const pool = mariadb.createPool({
   password: process.env.DATABASEPASSWORD,
   database: process.env.DATABASENAME,
   port: process.env.DATABASEPORT || 3306,
-  connectionLimit: 10,
+  connectionLimit: 5,
+  acquireTimeout: 60000,
+  timeout: 60000,
+  idleTimeout: 600000,
+  minimumIdle: 1,
   charset: 'utf8mb4',
-  collation: 'utf8mb4_unicode_ci',
+  collation: 'utf8mb4_unicode_ci',
 });
 (async () => {
   let conn;
@@ -26,4 +30,4 @@ const pool = mariadb.createPool({
 })();
 
 
- export default pool;
+  export default pool;

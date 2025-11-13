@@ -15,6 +15,7 @@ import EmpleadorPerfil from '../views/Empleador/EmpleadorPerfil.vue'
 import EmpleadorRecursos from '../views/Empleador/EmpleadorRecursos.vue'
 import EmpleadorValoraciones from '../views/Empleador/EmpleadorValoraciones.vue'
 import EmpleadorPostulaciones from '../views/Empleador/EmpleadorPostulaciones.vue'
+import PublicarOfertas from '@/views/Empleador/publicarOfertas.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -99,6 +100,11 @@ const router = createRouter({
       name: 'EmpleadorPostulaciones',
       component: EmpleadorPostulaciones
     },
+    {
+      path: '/empleador/empleos/publicar-ofertas',
+      name: 'EmpleadorPublicarOfertas',
+      component: PublicarOfertas
+    }
   ],
 })
 

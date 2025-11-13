@@ -12,7 +12,7 @@
           <p class="text-gray-600 dark:text-gray-400 mt-2">Administra y publica ofertas de trabajo</p>
         </div>
         <button 
-          @click="showNewJobModal = true"
+          @click="$router.push('/empleador/empleos/publicar-ofertas')"
           class="mt-4 sm:mt-0 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
